@@ -64,7 +64,8 @@ app.post("/signin", async (req, res) => {
         return;
     }
 
-    const token = jwt.sign(user , "jwtSecret"); //JWT_SECRET is hard coded make it a import which is not pushed
+    const userId = user.id;
+    const token = jwt.sign({userId}, "jwtSecret"); //JWT_SECRET is hard coded make it a import which is not pushed
 
     res.json({
         token
