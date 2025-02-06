@@ -1,0 +1,22 @@
+{
+  "name": "ws-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/ws": "^8.5.14",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.0",
+    "@repo/db": "workspace:*"
+  }
+}
