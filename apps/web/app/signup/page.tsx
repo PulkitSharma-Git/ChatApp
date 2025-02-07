@@ -5,10 +5,13 @@ import { Card } from "@repo/ui/Card";
 import { useState } from "react";
 import axios from "axios";
 import Link from 'next/link'
+import { useRouter } from "next/navigation";
 
 
 
 export default function Page() {
+
+  const router = useRouter();
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -25,6 +28,8 @@ export default function Page() {
       );
 
       alert(response.data.message);
+      router.push("/signin");
+
     } catch (error) {
       console.error("Error signing up:", error);
       alert("Signup failed. Please try again.");
@@ -49,9 +54,9 @@ export default function Page() {
       setPasswordInput(e.target.value)
     }}></InputBox>
 
-    <Link href="/signin">
+
     <Card onClick={handleSignUp}text="Sign Up"></Card>
-    </Link>
+
     </Button>
    </div>
   );
