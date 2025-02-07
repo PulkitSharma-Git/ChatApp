@@ -2,12 +2,14 @@
 import { InputBox } from "@repo/ui/inputBox" //Card is actually a button
 import { Button } from "@repo/ui/Button" //Button is actually a card
 import { Card } from "@repo/ui/Card";
-import { use, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 
 
 export default function Page() {
+  const router = useRouter();
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
  
@@ -25,15 +27,13 @@ export default function Page() {
       setPasswordInput(e.target.value)
     }}></InputBox>
 
-    <Card onClick={()=> {
-        const response = axios.post("http://localhost:3001/signin", {
+    <Card onClick={ async ()=> {
+        const response = await axios.post("http://localhost:3001/signin", {
             email: emailInput,
             password: passwordInput,
         })
-      //Axios req to the BE signup endpoint
-      
-      
-      
+      localStorage.setItem("token", response.data.token);
+      router.push("/join");
 
     }} text="Sign In"></Card>
     </Button>
