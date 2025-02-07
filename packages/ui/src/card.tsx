@@ -1,30 +1,17 @@
-import { type ReactNode } from "react";
+import React, { MouseEventHandler } from "react";
 
-export function Card({
-  title,
-  children,
-  href,
-}: {
-  title: string;
-  children: ReactNode;
-  href: string;
-}) {
-  return (
-    <a
-      className="ui-group ui-rounded-lg ui-border ui-border-transparent ui-px-5 ui-py-4 ui-transition-colors hover:ui-border-neutral-700 hover:ui-bg-neutral-800/30"
-      href={`${href}?utm_source=create-turbo&utm_medium=with-tailwind&utm_campaign=create-turbo"`}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <h2 className="ui-mb-3 ui-text-2xl ui-font-semibold">
-        {title}{" "}
-        <span className="ui-inline-block ui-transition-transform group-hover:ui-translate-x-1 motion-reduce:ui-transform-none">
-          -&gt;
-        </span>
-      </h2>
-      <p className="ui-m-0 ui-max-w-[30ch] ui-text-sm ui-opacity-50">
-        {children}
-      </p>
-    </a>
-  );
+interface CardProps {
+  text: string;
+  onClick?: MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+export const Card: React.FC<CardProps> = ({ text, onClick }) => {
+
+  return <div onClick={onClick} className="relative inline-flex h-12 w-40 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+  <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full hover:bg-slate-500  transition bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+    {text}
+  </span>
+</div>
+
 }

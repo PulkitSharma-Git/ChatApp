@@ -1,9 +1,11 @@
 import express, { json } from "express";
 import { client } from "@repo/db/client";
 import jwt from "jsonwebtoken";
+import cors from "cors";
 import { authMiddleware } from "./middlewares/authMiddleware";
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 interface UserCreateInput {
@@ -23,12 +25,12 @@ interface RoomCreateInput {
 }
 
 app.post("/signup", async (req, res) => {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
 
     const newUser: UserCreateInput = {
-        email: username,
+        email: email,
         password,
         name
     }

@@ -4,6 +4,7 @@ import { Button } from "@repo/ui/Button" //Button is actually a card
 import { Card } from "@repo/ui/Card";
 import { useState } from "react";
 import axios from "axios";
+import Link from 'next/link'
 
 
 
@@ -48,7 +49,9 @@ export default function Page() {
       setPasswordInput(e.target.value)
     }}></InputBox>
 
+    <Link href="/signin">
     <Card onClick={handleSignUp}text="Sign Up"></Card>
+    </Link>
     </Button>
    </div>
   );
