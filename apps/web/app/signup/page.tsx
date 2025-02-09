@@ -1,11 +1,12 @@
-"use client"
-import { InputBox } from "@repo/ui/inputBox" //Card is actually a button
-import { Button } from "@repo/ui/Button" //Button is actually a card
+"use client";
+import { InputBox } from "@repo/ui/inputBox"; //Card is actually a button
+import { Button } from "@repo/ui/Button"; //Button is actually a card
 import { Card } from "@repo/ui/Card";
 import { useState } from "react";
 import axios from "axios";
-import Link from 'next/link'
 import { useRouter } from "next/navigation";
+import { BACKEND_URL } from "../../config";
+import { WS_URL } from "../../config";
 
 
 
@@ -19,7 +20,7 @@ export default function Page() {
   const handleSignUp = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/signup",
+        `${BACKEND_URL}/signup`,
         {
           name: nameInput,
           email: emailInput,

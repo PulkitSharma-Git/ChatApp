@@ -106,9 +106,11 @@ app.get("/room/:slug", async (req, res) => {
         where: {
             slug
         }
-    })
+    });
 
-    res.json(room)
+    res.json({
+        room
+    })
 })
 
 //EndPoint to get Previous 50 chats of a room using roomId

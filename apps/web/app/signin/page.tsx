@@ -5,6 +5,7 @@ import { Card } from "@repo/ui/Card";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { BACKEND_URL } from "../../config";
 
 
 
@@ -28,7 +29,7 @@ export default function Page() {
     }}></InputBox>
 
     <Card onClick={ async ()=> {
-        const response = await axios.post("http://localhost:3001/signin", {
+        const response = await axios.post(`${BACKEND_URL}/signin`, {
             email: emailInput,
             password: passwordInput,
         })
