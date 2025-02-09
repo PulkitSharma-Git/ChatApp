@@ -23,16 +23,21 @@ export default function Page() {
 
     <Card onClick={ async ()=> {
         const token = localStorage.getItem("token");
+        
+        try {
+          const response = await axios.post(`${BACKEND_URL}/joinroom`, {
+              name: roomName
+          }, {
+              headers: {
+                  Authorization: token
+              }
+          })
 
-        const response = await axios.post(`${BACKEND_URL}/joinroom`, {
-            name: roomName
-        }, {
-            headers: {
-                Authorization: token
-            }
-        })
+        }catch(e) {
+          alert("room already exist")
 
-        const roomId = response.data.roomId;
+        }
+
 
         router.push(`/ChatRoom/${roomName}`)
         

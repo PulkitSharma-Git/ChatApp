@@ -12,6 +12,9 @@ export default async function ChatBox({id} : {
     id: string
 }) {
     const messages = await getChats(id);
-    return <ChatBoxClient id={id} messages={messages}></ChatBoxClient>
+    return (
+
+        <ChatBoxClient id={id} messages={messages}></ChatBoxClient>
+    )
 
 }

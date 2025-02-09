@@ -83,18 +83,26 @@ app.post("/joinroom", authMiddleware, async (req, res) => {
         return;
     }
 
-    const createRoom : RoomCreateInput = {
-        slug: roomName,
-        adminId: adminId
+    try {
+        const createRoom : RoomCreateInput = {
+            slug: roomName,
+            adminId: adminId
+        }
+    
+        const room = await client.room.create({
+            data: createRoom
+        })
+    
+        res.json({
+            roomId: room.id
+        })
+
+
+    }catch(e) {
+        res.status(411).json({
+            message: "Room already exists with this name"
+        })
     }
-
-    const room = await client.room.create({
-        data: createRoom
-    })
-
-    res.json({
-        roomId: room.id
-    })
 
 })
 

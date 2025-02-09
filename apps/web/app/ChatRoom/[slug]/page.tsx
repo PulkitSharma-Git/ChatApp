@@ -20,7 +20,9 @@ export default async function ChatRoom1( { params } : ParamsInput) {
     const room = await getRoom(slug);
     const roomId = room.id; //This contains roomId 
 
-    return <ChatBox id={roomId}></ChatBox>
+    return <div className="flex h-screen w-screen items center justify-center bg-purple-600"> 
+        <ChatBox id={roomId}></ChatBox>
+        </div>
 
 
 

@@ -1,7 +1,9 @@
 "use client"
-
+import { Card } from "@repo/ui/Card";
 import { useEffect, useState } from "react";
 import { useSocket } from "../hooks/useSocket";
+import { InputBox } from "@repo/ui/inputBox";
+import { Button } from "@repo/ui/Button";
 
 export function ChatBoxClient({  //Prop is an obj containing messages and id
     messages,
@@ -17,17 +19,13 @@ export function ChatBoxClient({  //Prop is an obj containing messages and id
     const [chats, setChats] = useState(messages);  //Contains previous 50 chats and upcoming chats will also be added
     const {socket, loading} = useSocket();
 
-    const join_request = {
-        type: "join_room",
-        roomid: id
-    };
-
-
-
     useEffect( () => {
         if(socket && !loading) {  //after loading compeletes
 
-            socket.send(JSON.stringify(join_request));
+            socket.send(JSON.stringify({
+                type: "join_room",
+                roomid: id
+            }));
 
             socket.onmessage = (event) => { //When any message string comes
                 const parsedData = JSON.parse(event.data);   //Convert string to json 
@@ -45,12 +43,12 @@ export function ChatBoxClient({  //Prop is an obj containing messages and id
 
     return <div>
         {chats.map(m => <div>{m.message}</div>)}
+    
+        <InputBox type="text" placeholder="Write your mesage" variant = "first" onChange={e => {
+            setCurrentMessage(e.target.value)
+        }}></InputBox>
 
-        <input placeholder="Type your message" type="text" value={currentMessage} onChange={e => {
-            setCurrentMessage(e.target.value);
-        }}></input>
-
-        <button onClick={ () => {
+        <Card text="Send" onClick={() => {
             socket?.send(JSON.stringify({
                 type: "chat",
                 roomId: id,
@@ -58,7 +56,22 @@ export function ChatBoxClient({  //Prop is an obj containing messages and id
             }))
             
             setCurrentMessage("");
-        }}>Send</button>
+        }}></Card>
+
+        
+        
+        
+
+    
+        {/* <button className="bg-black" onClick={ () => {
+            socket?.send(JSON.stringify({
+                type: "chat",
+                roomId: id,
+                message: currentMessage
+            }))
+            
+            setCurrentMessage("");
+        }}>Send</button> */}
     </div>
 
 }
