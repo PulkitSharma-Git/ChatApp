@@ -67,6 +67,20 @@ wss.on('connection', function connection(ws: WebSocket, request) {
             const message = parsedData.message;
 
             //DB call to throw the chat in chat table
+            try{
+                await client.chat.create({
+                    data: {
+                        roomId: Number(roomId),
+                        message,
+                        userId
+                        
+                    }
+                })
+            }catch(e) {
+                console.log("Room does not exist", roomId);
+                ws.send(JSON.stringify({ type: "error", message: "Room does not exist" }));
+                return;
+            }
             
             const messagetoAll = {  //Data to broadcast to other ws connections (Ofcourse which have the same roomId)
                 type: "chat",
@@ -78,14 +92,6 @@ wss.on('connection', function connection(ws: WebSocket, request) {
                     user.ws.send(JSON.stringify( messagetoAll ));
                 }
             });
-            await client.chat.create({
-                data: {
-                    roomId: Number(roomId),
-                    message,
-                    userId
-                    
-                }
-            })
         }
     });
 });
